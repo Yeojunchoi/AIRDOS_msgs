@@ -23,6 +23,7 @@ find_package(Boost 1.62.0 REQUIRED COMPONENTS system filesystem)
 
 
 rosidl_generate_interfaces(${PROJECT_NAME}
+   "msg/RouteCommand.msg"
    "msg/Waypoint.msg"
    "msg/WaypointArray.msg"
    "srv/Route.srv"
