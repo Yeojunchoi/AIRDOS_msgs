@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.5)
+cmake_minimum_required(VERSION 3.0.2)
 project(route_service_msgs)
 
 # Default to C99
@@ -8,31 +8,36 @@ endif()
 
 # Default to C++14
 if(NOT CMAKE_CXX_STANDARD)
-  set(CMAKE_CXX_STANDARD 14)
+  set(CMAKE_CXX_STANDARD 11)
 endif()
 
-if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
-  add_compile_options(-Wall -Wextra -Wpedantic)
-endif()
+
 
 # find dependencies
-find_package(ament_cmake REQUIRED)
-find_package(builtin_interfaces REQUIRED)
-find_package(rosidl_default_generators REQUIRED)
-find_package(Boost 1.62.0 REQUIRED COMPONENTS system filesystem)
+find_package(catkin REQUIRED COMPONENTS
+   roscpp
+   rospy
+   std_msgs
+   message_generation
+)
+
+catkin_package(
+  px4_msgs
+  CATKIN_DEPENDS message_runtime 
+  )
 
 
-rosidl_generate_interfaces(${PROJECT_NAME}
+
+ add_message_files(
    "msg/RouteCommand.msg"
    "msg/Waypoint.msg"
    "msg/WaypointArray.msg"
    "msg/WaypointInjection.msg"
+)
+
+add_service_files(
    "srv/Route.srv"
-
-  DEPENDENCIES builtin_interfaces
- )
-
-
+)
 
 install(TARGETS
   ${PUBLISHER_NODE_NAME}
