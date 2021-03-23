@@ -14,51 +14,40 @@ endif()
 
 
 # find dependencies
-find_package(catkin REQUIRED COMPONENTS
-   roscpp
-   rospy
-   std_msgs
-   message_generation
-)
+find_package(catkin REQUIRED COMPONENTS message_generation std_msgs)
 
-catkin_package(
-  px4_msgs
-  CATKIN_DEPENDS message_runtime 
-  )
 
 
 
  add_message_files(
-   "msg/RouteCommand.msg"
-   "msg/Waypoint.msg"
-   "msg/WaypointArray.msg"
-   "msg/WaypointInjection.msg"
+   DIRECTORY msg
+   FILES
+   RouteCommand.msg
+   Waypoint.msg
+   WaypointArray.msg
+   WaypointInjection.msg
 )
 
 add_service_files(
-   "srv/Route.srv"
+   DIRECTORY srv
+   FILES
+   Route.srv
+    
 )
 
-install(TARGETS
-  ${PUBLISHER_NODE_NAME}
-  ${SUBSCRIBER_NODE_NAME}
-  DESTINATION lib/${PROJECT_NAME}
+generate_messages(
+   DEPENDENCIES
+   std_msgs
+   )
+
+catkin_package(
+    CATKIN_DEPENDS message_runtime std_msgs
+)
+
+## Add include dirs
+include_directories(
+    include
+    ${catkin_INCLUDE_DIRS}
 )
 
 
-
-
-
-if(BUILD_TESTING)
-  find_package(ament_lint_auto REQUIRED)
-  # the following line skips the linter which checks for copyrights
-  # uncomment the line when a copyright and license is not present in all source files
-  #set(ament_cmake_copyright_FOUND TRUE)
-  # the following line skips cpplint (only works in a git repo)
-  # uncomment the line when this package is not in a git repo
-  #set(ament_cmake_cpplint_FOUND TRUE)
-  ament_lint_auto_find_test_dependencies()
-endif()
-
-ament_export_dependencies(rosidl_default_runtime)
-ament_package()
