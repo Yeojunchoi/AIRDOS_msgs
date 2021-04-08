@@ -32,6 +32,7 @@ add_service_files(
    DIRECTORY srv
    FILES
    Route.srv
+   WaypointInjector.srv
     
 )
 
@@ -58,8 +59,8 @@ install(DIRECTORY include/${PROJECT_NAME}/
 
 
 ## Install package.xml
-install(
-  FILES ${PROJECT_SOURCE_DIR}/package.xml
-  DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}/${PROJECT_NAME}
-)
+#install(
+#  FILES ${PROJECT_SOURCE_DIR}/package.xml
+#  DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}/${PROJECT_NAME}
+#)
 
