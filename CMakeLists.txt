@@ -28,6 +28,7 @@ rosidl_generate_interfaces(${PROJECT_NAME}
    "msg/WaypointArray.msg"
    "msg/WaypointInjection.msg"
    "srv/Route.srv"
+   "srv/WaypointInjector.srv"
 
   DEPENDENCIES builtin_interfaces
  )
